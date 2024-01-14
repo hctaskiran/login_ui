@@ -22,7 +22,7 @@ class RegisterPage extends StatelessWidget {
 
     void register() {
       if (formKey.currentState!.validate()) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeView()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeView()));
       } else {
         return;
       }
