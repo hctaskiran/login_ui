@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/anim/fade_anim.dart';
 import 'package:login_ui/components/register_form.dart';
+import 'package:login_ui/components/reset_and_sign_up.dart';
 import 'package:login_ui/page/home_page.dart';
 import 'package:login_ui/page/login_page.dart';
 
@@ -130,22 +130,11 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Already have an account?', style: TextStyle(color: Colors.white.withOpacity(0.6))),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(context, FadeAnim(page: const LoginPage()));
-                      },
-                      child: Text('Login here!',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue.withOpacity(0.6),
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.blue.withOpacity(0.6))),
-                    ),
-                  ],
+                const ResetAndSignUp(
+                  check: 'Already have an account?',
+                  clickable: 'Login here!',
+                  page: LoginPage(),
+                  mainAlign: MainAxisAlignment.center,
                 )
               ],
             ),

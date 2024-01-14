@@ -2,9 +2,11 @@ import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/page/register_page.dart';
 import 'package:login_ui/anim/fade_anim.dart';
 import 'package:login_ui/components/login_form.dart';
+import 'package:login_ui/components/reset_and_sign_up.dart';
+import 'package:login_ui/page/home_page.dart';
+import 'package:login_ui/page/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -71,19 +73,30 @@ class LoginPage extends StatelessWidget {
                         Text('Login to see what others have done!',
                             style: TextStyle(color: Colors.white.withOpacity(0.6))),
                         const SizedBox(height: 20),
-                        LoginForm(
-                          controller: email,
-                          hint: 'Enter an Email',
-                          label: 'Email',
-                          icon: Icons.email,
-                          action: TextInputAction.next,
+                        Column(
+                          children: [
+                            LoginForm(
+                              controller: email,
+                              hint: 'Enter an Email',
+                              label: 'Email',
+                              icon: Icons.email,
+                              action: TextInputAction.next,
+                            ),
+                            const SizedBox(height: 15),
+                            LoginForm(
+                                controller: password,
+                                hint: 'Enter a Password',
+                                label: 'Password',
+                                icon: Icons.key,
+                                action: TextInputAction.done),
+                          ],
                         ),
-                        LoginForm(
-                            controller: password,
-                            hint: 'Enter a Password',
-                            label: 'Password',
-                            icon: Icons.key,
-                            action: TextInputAction.done),
+                        const ResetAndSignUp(
+                          check: '',
+                          clickable: 'Reset Password',
+                          page: RegisterPage(),
+                          mainAlign: MainAxisAlignment.end,
+                        ),
                         const SizedBox(height: 10),
                         Container(
                             decoration: BoxDecoration(
@@ -94,7 +107,9 @@ class LoginPage extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(horizontal: 50),
                               child: TextButton(
                                   isSemanticButton: false,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(context, FadeAnim(page: const HomeView()));
+                                  },
                                   child: Text(
                                     'Sign In',
                                     style: TextStyle(color: Colors.white.withOpacity(0.6)),
@@ -105,22 +120,11 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Don\'t have an account?', style: TextStyle(color: Colors.white.withOpacity(0.6))),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context, FadeAnim(page: RegisterPage()));
-                        },
-                        child: Text('Sign up!',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue.withOpacity(0.6),
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.blue.withOpacity(0.6))),
-                      ),
-                    ],
+                  const ResetAndSignUp(
+                    check: 'Don\'t have an account?',
+                    clickable: 'Sign up!',
+                    page: RegisterPage(),
+                    mainAlign: MainAxisAlignment.center,
                   )
                 ],
               ),
