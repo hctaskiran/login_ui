@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "696271793828",
+    "project_id": "loginauth-a2ad4",
+    "storage_bucket": "loginauth-a2ad4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696271793828:android:ae6b07185fa475faa40031",
+        "android_client_info": {
+          "package_name": "com.sagredina.apexstatusmobile.login_ui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChn-fMOksTT1UPq7FnIj_TLg666FWMEbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

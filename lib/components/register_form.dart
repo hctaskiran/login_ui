@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 
 class RegisterForm extends StatelessWidget {
   RegisterForm(
-      {super.key,
+      {Key? key,
       required this.controller,
       required this.hint,
       required this.label,
       required this.icon,
       this.action,
-      this.validator});
+      this.validator})
+      : super(key: key);
   final TextEditingController controller;
   final String hint;
   final String label;
@@ -25,6 +26,7 @@ class RegisterForm extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TextFormField(
+          obscureText: label == 'Password' || label == 'Confirmation' ? true : false,
           validator: (value) {
             if (validator != null) {
               final String? validationError = validator!(value);

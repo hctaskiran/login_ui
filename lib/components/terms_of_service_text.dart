@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:login_ui/anim/fade_anim.dart';
 
-class ResetAndSignUp extends StatelessWidget {
-  const ResetAndSignUp(
-      {Key? key, required this.check, required this.clickable, required this.page, required this.mainAlign})
-      : super(key: key);
+class TermOfServiceText extends StatelessWidget {
+  const TermOfServiceText({
+    Key? key,
+    required this.check,
+    required this.clickable,
+    required this.page,
+  });
   final String check;
   final String clickable;
   final Widget page;
-  final MainAxisAlignment mainAlign;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: mainAlign,
+    return Column(
       children: [
         Text(check, style: TextStyle(color: Colors.white.withOpacity(0.6))),
         TextButton(
