@@ -2,21 +2,14 @@
 
 import 'package:flutter/material.dart';
 
-class RegisterForm extends StatelessWidget {
-  RegisterForm(
-      {super.key,
-      required this.controller,
-      required this.hint,
-      required this.label,
-      required this.icon,
-      this.action,
-      this.validator});
+class LoginForm extends StatelessWidget {
+  LoginForm(
+      {super.key, required this.controller, required this.hint, required this.label, required this.icon, this.action});
   final TextEditingController controller;
   final String hint;
   final String label;
   IconData icon;
   TextInputAction? action;
-  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +18,6 @@ class RegisterForm extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TextFormField(
-          validator: (value) {
-            if (validator != null) {
-              final String? validationError = validator!(value);
-              if (validationError != null) {
-                return validationError;
-              }
-            }
-            return null;
-          },
           style: const TextStyle(color: Colors.white),
           controller: controller,
           textInputAction: action,
