@@ -19,6 +19,7 @@ class LoginForm extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TextFormField(
+          keyboardAppearance: Brightness.dark,
           obscureText: label == 'Password' ? true : false,
           style: const TextStyle(color: Colors.white),
           controller: controller,

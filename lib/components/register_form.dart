@@ -26,6 +26,7 @@ class RegisterForm extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TextFormField(
+          keyboardAppearance: Brightness.dark,
           obscureText: label == 'Password' || label == 'Confirmation' ? true : false,
           validator: (value) {
             if (validator != null) {
