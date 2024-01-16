@@ -68,11 +68,11 @@ class RegisterPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const ResetAndSignUp(
-                  check: 'Already have an account?',
+                  check: 'Already have an account? ',
                   clickable: 'Login here!',
                   page: LoginPage(),
                   mainAlign: MainAxisAlignment.center),
-              const SizedBox(height: 50),
+              const SizedBox(height: 70),
               const TermOfServiceText(
                 check: 'By signing up, you agree to our',
                 clickable: 'Terms of Service and Privacy Policy',

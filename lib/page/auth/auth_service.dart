@@ -5,7 +5,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_ui/anim/fade_anim.dart';
-import 'package:login_ui/page/login_page.dart';
+import 'package:login_ui/page/home_page.dart';
 
 Future<void> signUserIn(BuildContext context, TextEditingController email, TextEditingController password) async {
   showDialog(
@@ -49,21 +49,6 @@ Future<void> signUserUp(
   TextEditingController password,
   TextEditingController confirmPassword,
 ) async {
-  showDialog(
-    context: context,
-    builder: (context) => const Center(child: CircularProgressIndicator()),
-  );
-
-  void showSuccessSnackbar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.green[700]!.withOpacity(0.3),
-        content: const Text('Account created successfully'),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
   void errorShow(String errorMessage) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -80,24 +65,43 @@ Future<void> signUserUp(
         email: email.text,
         password: password.text,
       );
-
-      // Close the loading dialog
       Navigator.pop(context);
-
-      // Show success Snackbar
-      showSuccessSnackbar();
-
-      // Navigate to the LoginPage after successful sign-up
-      Navigator.pushReplacement(context, FadeAnim(page: const LoginPage()));
+      Navigator.pushReplacement(context, FadeAnim(page: HomeView()));
     } else {
-      // Close the loading dialog
       Navigator.pop(context);
       errorShow('Passwords do not match');
     }
   } on FirebaseAuthException catch (e) {
-    // Close the loading dialog
     Navigator.pop(context);
-    errorShow('Error creating account: ${e.message}');
+
+    errorShow('${e.message}');
     print(e.code);
+  }
+}
+
+Future resetPassword(email, BuildContext context) async {
+  void errorShow(String errorMessage, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: color,
+        content: Text(errorMessage),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  try {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    errorShow('Recover link sent! Check your mailbox.', Colors.green[700]!.withOpacity(0.3));
+  } on FirebaseException catch (e) {
+    if (e.code == 'user-not-found') {
+      errorShow('No user found for that email.', Colors.red[700]!.withOpacity(0.3));
+    } else if (e.code == 'missing-email') {
+      errorShow('Email field cannot be empty', Colors.red[700]!.withOpacity(0.3));
+    } else if (e.code == 'invalid-email') {
+      errorShow('Invalid email, please check again', Colors.red[700]!.withOpacity(0.3));
+    } else {
+      errorShow(e.code, Colors.red[700]!.withOpacity(0.3));
+    }
   }
 }

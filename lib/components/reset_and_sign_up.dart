@@ -16,8 +16,8 @@ class ResetAndSignUp extends StatelessWidget {
       mainAxisAlignment: mainAlign,
       children: [
         Text(check, style: TextStyle(color: Colors.white.withOpacity(0.6))),
-        TextButton(
-          onPressed: () {
+        GestureDetector(
+          onTap: () {
             Navigator.pushReplacement(context, FadeAnim(page: page));
           },
           child: Text(clickable,

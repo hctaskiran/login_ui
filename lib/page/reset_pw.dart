@@ -4,37 +4,24 @@ import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:login_ui/components/divider.dart';
-import 'package:login_ui/components/login_requirements.dart';
 import 'package:login_ui/components/reset_and_sign_up.dart';
+import 'package:login_ui/components/reset_requirements.dart';
 import 'package:login_ui/page/auth/auth_service.dart';
-import 'package:login_ui/page/register_page.dart';
-import 'package:login_ui/page/reset_pw.dart';
+import 'package:login_ui/page/login_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class ResetPassword extends StatefulWidget {
+  const ResetPassword({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ResetPassword> createState() => _ResetPasswordState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     final TextEditingController email = TextEditingController();
-    final TextEditingController password = TextEditingController();
-
-    Future<void> showResetPw() async {
-      showDialog(
-          context: context,
-          builder: (context) => const AlertDialog(
-                content: Column(
-                  children: [Text('Please enter your email')],
-                ),
-              ));
-    }
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -67,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: screenWidth * 0.1,
                         child: AnimatedTextKit(
                           animatedTexts: [
-                            FadeAnimatedText('Welcome',
+                            FadeAnimatedText('Recover Your Moments',
                                 duration: const Duration(seconds: 5),
                                 textStyle: const TextStyle(
                                     fontSize: 32,
@@ -85,28 +72,19 @@ class _LoginPageState extends State<LoginPage> {
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                         color: Colors.transparent.withOpacity(0.2), borderRadius: BorderRadius.circular(20)),
-                    child: LoginPageForms(
+                    child: ResetPageForm(
                       email: email,
-                      password: password,
-                      onPressed: () => signUserIn(context, email, password),
+                      onPressed: () => resetPassword(email.text.trim(), context),
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.03),
                   const ResetAndSignUp(
-                    check: 'Forgot password? ',
-                    clickable: 'Reset now!',
-                    page: ResetPassword(),
+                    check: 'Changed your mind? ',
+                    clickable: 'Login back!',
+                    page: LoginPage(),
                     mainAlign: MainAxisAlignment.center,
                   ),
                   SizedBox(height: screenHeight * 0.03),
-                  LoginDivider(screenWidth: screenWidth),
-                  SizedBox(height: screenHeight * 0.03),
-                  const ResetAndSignUp(
-                    check: 'Don\'t have an account? ',
-                    clickable: 'Sign up!',
-                    page: RegisterPage(),
-                    mainAlign: MainAxisAlignment.center,
-                  )
                 ],
               ),
             ],

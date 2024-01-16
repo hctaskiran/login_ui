@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-class RegisterForm extends StatelessWidget {
+class RegisterForm extends StatefulWidget {
   RegisterForm(
       {Key? key,
       required this.controller,
@@ -20,6 +20,13 @@ class RegisterForm extends StatelessWidget {
   final String? Function(String?)? validator;
 
   @override
+  State<RegisterForm> createState() => _RegisterFormState();
+}
+
+class _RegisterFormState extends State<RegisterForm> {
+  bool obscureText = true;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
@@ -27,10 +34,10 @@ class RegisterForm extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TextFormField(
           keyboardAppearance: Brightness.dark,
-          obscureText: label == 'Password' || label == 'Confirmation' ? true : false,
+          obscureText: widget.label == 'Password' || widget.label == 'Confirmation' ? obscureText : false,
           validator: (value) {
-            if (validator != null) {
-              final String? validationError = validator!(value);
+            if (widget.validator != null) {
+              final String? validationError = widget.validator!(value);
               if (validationError != null) {
                 return validationError;
               }
@@ -38,15 +45,28 @@ class RegisterForm extends StatelessWidget {
             return null;
           },
           style: const TextStyle(color: Colors.white),
-          controller: controller,
-          textInputAction: action,
+          controller: widget.controller,
+          textInputAction: widget.action,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            hintText: hint,
-            labelText: label,
+            hintText: widget.hint,
+            labelText: widget.label,
             hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
             labelStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
-            prefixIcon: Icon(icon, color: Colors.white.withOpacity(0.6)),
+            prefixIcon: Icon(widget.icon, color: Colors.white.withOpacity(0.6)),
+            suffixIcon: widget.label == 'Confirmation'
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
+                    icon: Icon(
+                      obscureText == true ? Icons.visibility : Icons.visibility_off,
+                      color: obscureText == true ? Colors.white.withOpacity(0.6) : Colors.red[900],
+                    ),
+                  )
+                : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
             ),

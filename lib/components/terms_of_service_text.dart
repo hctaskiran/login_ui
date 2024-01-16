@@ -7,7 +7,7 @@ class TermOfServiceText extends StatelessWidget {
     required this.check,
     required this.clickable,
     required this.page,
-  });
+  }) : super(key: key);
   final String check;
   final String clickable;
   final Widget page;
@@ -17,8 +17,8 @@ class TermOfServiceText extends StatelessWidget {
     return Column(
       children: [
         Text(check, style: TextStyle(color: Colors.white.withOpacity(0.6))),
-        TextButton(
-          onPressed: () {
+        GestureDetector(
+          onTap: () {
             Navigator.pushReplacement(context, FadeAnim(page: page));
           },
           child: Text(clickable,
