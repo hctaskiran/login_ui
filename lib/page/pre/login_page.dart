@@ -4,24 +4,27 @@ import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:login_ui/components/divider.dart';
+import 'package:login_ui/components/login_requirements.dart';
 import 'package:login_ui/components/reset_and_sign_up.dart';
-import 'package:login_ui/components/reset_requirements.dart';
-import 'package:login_ui/page/auth/auth_service.dart';
-import 'package:login_ui/page/login_page.dart';
+import 'package:login_ui/main.dart';
+import 'package:login_ui/page/pre/register_page.dart';
+import 'package:login_ui/page/pre/reset_pw.dart';
 
-class ResetPassword extends StatefulWidget {
-  const ResetPassword({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<ResetPassword> createState() => _ResetPasswordState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _ResetPasswordState extends State<ResetPassword> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     final TextEditingController email = TextEditingController();
+    final TextEditingController password = TextEditingController();
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -54,7 +57,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         height: screenWidth * 0.1,
                         child: AnimatedTextKit(
                           animatedTexts: [
-                            FadeAnimatedText('Recover Your Moments',
+                            FadeAnimatedText('Welcome',
                                 duration: const Duration(seconds: 5),
                                 textStyle: const TextStyle(
                                     fontSize: 32,
@@ -72,19 +75,28 @@ class _ResetPasswordState extends State<ResetPassword> {
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                         color: Colors.transparent.withOpacity(0.2), borderRadius: BorderRadius.circular(20)),
-                    child: ResetPageForm(
+                    child: LoginPageForms(
                       email: email,
-                      onPressed: () => resetPassword(email.text.trim(), context),
+                      password: password,
+                      onPressed: () => authService.signUserIn(context, email, password),
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.03),
                   const ResetAndSignUp(
-                    check: 'Changed your mind? ',
-                    clickable: 'Login back!',
-                    page: LoginPage(),
+                    check: 'Forgot password? ',
+                    clickable: 'Reset now!',
+                    page: ResetPassword(),
                     mainAlign: MainAxisAlignment.center,
                   ),
                   SizedBox(height: screenHeight * 0.03),
+                  LoginDivider(screenWidth: screenWidth),
+                  SizedBox(height: screenHeight * 0.03),
+                  const ResetAndSignUp(
+                    check: 'Don\'t have an account? ',
+                    clickable: 'Sign up!',
+                    page: RegisterPage(),
+                    mainAlign: MainAxisAlignment.center,
+                  )
                 ],
               ),
             ],

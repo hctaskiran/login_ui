@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:login_ui/components/register_requirements.dart';
 import 'package:login_ui/components/reset_and_sign_up.dart';
 import 'package:login_ui/components/terms_of_service_text.dart';
-import 'package:login_ui/page/login_page.dart';
+import 'package:login_ui/main.dart';
+import 'package:login_ui/page/pre/login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -64,7 +65,11 @@ class RegisterPage extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration:
                     BoxDecoration(color: Colors.transparent.withOpacity(0.2), borderRadius: BorderRadius.circular(20)),
-                child: RegisterPageForms(email: email, password: password, confirmPassword: confirmPassword),
+                child: RegisterPageForms(
+                    email: email,
+                    password: password,
+                    confirmPassword: confirmPassword,
+                    onPressed: () => authService.signUserUp(context, email, password, confirmPassword)),
               ),
               const SizedBox(height: 10),
               const ResetAndSignUp(
